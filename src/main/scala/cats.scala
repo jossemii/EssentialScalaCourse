@@ -8,7 +8,8 @@ Feline. To make things interes ng, deﬁne:
 • on Feline a colour as before;
 • on Feline a String sound, which for a cat is "meow" and is "roar"
 for all other felines;
-• only Cat has a favourite food; an
+• only Cat has a favourite food; and
+• Lions have an Int maneSize.
 
  */
 
