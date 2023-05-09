@@ -38,7 +38,7 @@ object Film {
   }
 }
 
-def test = {
+def director_test(): Unit = {
   val eastwood = new Director("Clint", "Eastwood", 1930)
   val mcTiernan = new Director("John", "McTiernan", 1951)
   val nolan = new Director("Christopher", "Nolan", 1970)

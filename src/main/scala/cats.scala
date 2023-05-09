@@ -8,7 +8,9 @@ object ChipShop {
   def willServe(cat: Cat): Boolean = cat.food == "Chips"
 }
 
-def test(): Unit = {
+case class CaseCat(name: String, color: String)
+
+def cats_test(): Unit = {
   println(ChipShop.willServe(first_cat))
   println(ChipShop.willServe(second_cat))
   println(ChipShop.willServe(third_cat))
