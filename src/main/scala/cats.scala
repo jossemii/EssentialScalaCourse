@@ -17,23 +17,47 @@ trait Callable {
   def name: String
 }
 
-trait Feline extends Callable {
+sealed trait Feline extends Callable {
   def colour: String
   def sound: String
+  def dinner: Food
+
+  def dinner_functional: Food = this match
+    case Lion(_, _) => Antelope
+    case Tiger(_, _) => TigerFood
+    case Panther(_, _) => Licorice
+    case Cat(_, _, food) => CatFood(food)
 }
 
-trait BigCat extends Feline {
+sealed trait BigCat extends Feline {
   val sound = "roar"
 }
 
 case class Tiger(name: String, colour: String) extends BigCat {
   override val sound = "roar, im a tiger ..."
+  override def dinner: Food = TigerFood
 }
-case class Panther(name: String, colour: String) extends BigCat
-case class Lion(name: String, colour: String) extends BigCat
+case class Panther(name: String, colour: String) extends BigCat {
+  override def dinner: Food = Licorice
+}
+case class Lion(name: String, colour: String) extends BigCat {
+  override def dinner: Food = Antelope
+}
 case class Cat(name: String, colour: String, food: String) extends Feline {
   val sound = "meow"
+
+  override def dinner: Food = CatFood(food)
 }
+
+
+sealed trait Food
+case object Antelope extends Food
+case object TigerFood extends Food
+case object Licorice extends Food
+final case class CatFood(food: String) extends Food
+
+
+// Tests
 
 val first_cat: Cat = Cat(name = "Oswald", colour = "Black", food = "Milk")
 val second_cat: Cat = Cat(name = "Henderson", colour = "Ginger", food = "Chips")
