@@ -9,7 +9,5 @@ object calc {
 
 @main
 def main(): Unit = {
-  println(
-    "Hello world."
-  )
+  case_director_test()
 }
