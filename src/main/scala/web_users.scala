@@ -1,6 +1,6 @@
 import java.util.Date
 
-trait Visitor {
+sealed trait Visitor {
   def id: String
   // Unique id assigned to each user
   def createdAt: Date // Date this user first visited the site
@@ -8,8 +8,8 @@ trait Visitor {
   def age: Long = new Date().getTime - createdAt.getTime
 }
 
-case class Anonymous(id: String, createdAt: Date = new Date()) extends Visitor
-case class User(
+final case class Anonymous(id: String, createdAt: Date = new Date()) extends Visitor
+final case class User(
                  id: String,
                  email: String,
                  createdAt: Date = new Date()
@@ -17,3 +17,9 @@ case class User(
 
 def older(v1: Visitor, v2: Visitor): Boolean =
   v1.createdAt.before(v2.createdAt)
+
+def missingCase(v: Visitor): String =
+  v match {
+    case User(_, _, _) => "Got a user"
+    case Anonymous(_, _) => "Anonym user"
+  }
