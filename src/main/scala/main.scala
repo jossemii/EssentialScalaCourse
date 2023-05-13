@@ -1,4 +1,4 @@
 @main
 def main(): Unit = {
-  calculator_test()
+  recursive_test()
 }
