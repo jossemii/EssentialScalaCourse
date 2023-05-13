@@ -9,15 +9,11 @@ sealed trait Expression {
   private def eval: Calculation = this match
 
     case Addition(left, right) => (left.eval, right.eval) match
-      case (Success(result_left), Success(result_right)) => result_left + result_right match
-        case Finite(value) => Success(value)
-        case Infinite => Failure("Infinite")
+      case (Success(result_left), Success(result_right)) => Success(result_left + result_right)
       case _ => Failure("Non success")
 
     case Subtraction(left, right) => (left.eval, right.eval) match
-      case (Success(result_left), Success(result_right)) => result_left - result_right match
-        case Finite(value) => Success(value)
-        case Infinite => Failure("Infinite")
+      case (Success(result_left), Success(result_right)) => Success(result_left - result_right)
       case _ => Failure("Non success")
 
     case Number(value) => Success(value)
