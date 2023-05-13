@@ -23,3 +23,22 @@ def missingCase(v: Visitor): String =
     case User(_, _, _) => "Got a user"
     case Anonymous(_, _) => "Anonym user"
   }
+
+
+/**
+Recall the Visitor trait we looked at earlier: a website Visitor is either
+Anonymous or a signed-in User. Now imagine we wanted to add the ability
+to send emails to visitors. We can only email signed-in users, and sending an
+email requires a lot of knowledge about SMTP settings, MIME headers, and
+so on. Would an email method be be er implemented using polymorphism
+on the Visitor trait or using pa ern matching in an EmailService object?
+
+Me - On the class, because we need to add some data to it.
+
+ Correct response - I would implement the method in an EmailService object. There are a lot of
+details to do with sending an email that have nothing to do with our Visitor
+class. I would rather keep these details in a separate abstract on.
+
+ Me - If the e-mail send data is not associated with the user, if not, the class would need modification too.
+*/
+
