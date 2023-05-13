@@ -1,11 +1,11 @@
 import scala.annotation.targetName
 
 sealed trait DivisionResult
-final case class Finite(value: Int) extends DivisionResult
+final case class Finite(value: Double) extends DivisionResult
 case object Infinite extends DivisionResult
 
 object divide {
-  def apply(x: Int, y: Int): DivisionResult = y match
+  def apply(x: Double, y: Double): DivisionResult = y match
     case 0 => Infinite
     case _ => Finite(value = x/y)
 }
