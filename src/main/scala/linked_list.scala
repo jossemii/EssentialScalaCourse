@@ -4,6 +4,10 @@ sealed trait Result[A]
 case class Success[A](result: A) extends Result[A]
 case class Failure[A](reason: String) extends Result[A]
 
+def fold[T](end: T, f: (list: LinkedList[T], total: T) => T): T = this match
+  case End => end
+  case Pair(head, tail) => f(tail, tail.fold(end, f))
+
 sealed trait LinkedList[T] {
 
   final def apply(position: Int): Result[T] = this match
@@ -12,11 +16,9 @@ sealed trait LinkedList[T] {
       case _ => tail(position -1)
     case End() => Failure("Index out of bounds")
 
-  @tailrec
-  final def contains(total: Int = 0): Int = this match {
-    case Pair(head, tail) => tail.contains(total = total +1)
-    case End() => total
-  }
+
+  final def contains: Int = fold[Int](0, (_, total: Int) => total +1)
+  // final def sum: T = fold[T](End[T](), (_, total: T, f: (T, T) => T) => f(2, total))
 
   /**
    * Deﬁne a method to double the value of each element in an IntList, returning
