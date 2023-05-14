@@ -1,22 +1,13 @@
-sealed trait Tree {
-  def sum: Int
-  def double: Tree
+sealed trait Tree[A] {
 
-  def sum_patmat: Int = this match
-    case Node(right, left) => right.sum + left.sum
-    case Lead(value) => value
+  def fold[B](pair: (B, B) => B, end: A => B): B = this match
+    case Node(right, left) => pair(right.fold(pair, end), left.fold(pair, end))
+    case Lead(value) => end(value)
 
-  def double_patmat: Tree = this match
-    case Node(right, left) => Node(right = right.double, left = left.double)
-    case Lead(value) => Lead(2*value)
+  // def sum: A = this.fold[A](A.sum, _)
+
+  // def double: Tree[A] = this.fold[Tree[A]](Node(_, _), Lead(A))
 }
 
-final case class Lead(value: Int) extends Tree {
-  def sum: Int = value
-  def double: Tree = Lead(2*value)
-}
-
-final case class Node(right: Tree, left: Tree) extends Tree {
-  def sum: Int = right.sum + left.sum
-  def double: Tree = Node(right.double, left.double)
-}
+final case class Lead[A](value: A) extends Tree[A]
+final case class Node[A](right: Tree[A], left: Tree[A]) extends Tree[A]
