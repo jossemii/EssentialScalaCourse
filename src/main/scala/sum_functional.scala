@@ -1,4 +1,4 @@
-object sum_fold {
+object sum_functional {
   sealed trait Sum[+A, +B] {
     def fold[C](error: A => C, success: B => C): C = this match
       case Failure(a) => error(a)
