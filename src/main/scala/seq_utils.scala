@@ -8,7 +8,11 @@ object seq_utils {
   def reverse(seq: Seq[Int]): Seq[Int] =
     seq.foldLeft(Seq.empty[Int]){ (seq: Seq[Int], el: Int) => el +: seq}
 
-  def map[A, B](seq: Seq[A], f: A => B): Seq[B] = {
-    seq.foldRight(Seq.empty[B]){ (elt, seq) => f(elt) +: seq }
+  def map[A, B](seq: Seq[A], f: A => B): Seq[B] = seq.foldRight(Seq.empty[B]){ (elt, seq) => f(elt) +: seq }
+
+  def foldLeft[A, B](seq: Seq[A], zero: B, f: (B, A) => B): B = {
+    var result: B = zero
+    seq.foreach{ el => result = f(result, el) }
+    result
   }
 }
