@@ -71,7 +71,7 @@ object movie_db {
       } yield film
     ).sortWith( (a, b) => a.imdbRating > b.imdbRating )
 
-  def toniht_printer: Unit = for {
+  def tonight_printer: Unit = for {
     director <- directors
     film <- director.films
   } println(s"Tonight! ${film.name} by ${director.name}!")
