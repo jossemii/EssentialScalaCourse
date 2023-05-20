@@ -1,4 +1,2 @@
 @main
-def main(): Unit = {
-  music_test
-}
+def main(): Unit = {}
