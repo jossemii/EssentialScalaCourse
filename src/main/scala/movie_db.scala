@@ -8,7 +8,9 @@ object movie_db {
                        firstName: String,
                        lastName: String,
                        yearOfBirth: Int,
-                       films: Seq[Film])
+                       films: Seq[Film]){
+    def name: String = s"${this.firstName} ${this.lastName}"
+  }
 
   val memento = new Film("Memento", 2000, 8.5)
   val darkKnight = new Film("Dark Knight", 2008, 9.0)
@@ -52,5 +54,26 @@ object movie_db {
         (a, b) => a.yearOfBirth > b.yearOfBirth
       }
     directors.sortWith(comparator)
+
+  def film_names_of_director(director: Director = nolan): Seq[String] = for {
+    film <- director.films
+  } yield film.name
+
+  def all_film_names: Seq[String] = for {
+    director <- directors
+    film <- director.films
+  } yield film.name
+
+  def films_sorted_by_IMDB: Seq[Film] = (
+      for {
+        director <- directors
+        film <- director.films
+      } yield film
+    ).sortWith( (a, b) => a.imdbRating > b.imdbRating )
+
+  def toniht_printer: Unit = for {
+    director <- directors
+    film <- director.films
+  } println(s"Tonight! ${film.name} by ${director.name}!")
 
 }
