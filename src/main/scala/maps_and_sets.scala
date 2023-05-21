@@ -49,4 +49,12 @@ object maps_and_sets {
       color <- favoriteColors.get(oldest)
     } yield color
 
+
+  def set_union[A](a: Set[A], b: Set[A]): Set[A] = a.foldLeft(b){(set, el) => set + el}
+
+  def set_map[A, B](a: Map[A, B], b: Map[A, B])(sum: (B, B) => B): Map[A, B] =
+    a.foldLeft(b) {(map, el) =>
+      val (key, value_a) = el
+      map + (key -> b.get(key).map(value_b => sum(value_a, value_b)).getOrElse(value_a))
+    }
 }
