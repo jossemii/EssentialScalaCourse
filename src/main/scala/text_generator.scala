@@ -50,4 +50,14 @@ object text_generator {
       Distribution(atoms.map(a => a -> p))
     }
   }
+
+  sealed trait Coin
+
+  case object Heads extends Coin
+
+  case object Tails extends Coin
+
+  val fairCoin: Distribution[Coin] = Distribution.uniform(List(Heads,
+    Tails))
+
 }
