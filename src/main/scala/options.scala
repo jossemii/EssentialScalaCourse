@@ -1,4 +1,4 @@
-class options {
+object options {
   def addOptions(option_a: Option[Int], option_b: Option[Int]): Option[Int] =
     for {
       a <- option_a
