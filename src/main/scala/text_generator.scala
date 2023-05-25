@@ -41,10 +41,9 @@ object text_generator {
 
       Distribution(distinct map { a => a -> prob(a) })
     }
-
   }
 
-  object Distribution {
+  private object Distribution {
     def uniform[A](atoms: List[A]): Distribution[A] = {
       val p = 1.0 / atoms.length
       Distribution(atoms.map(a => a -> p))
@@ -52,12 +51,8 @@ object text_generator {
   }
 
   sealed trait Coin
-
   case object Heads extends Coin
-
   case object Tails extends Coin
-
-  val fairCoin: Distribution[Coin] = Distribution.uniform(List(Heads,
-    Tails))
+  private val fairCoin: Distribution[Coin] = Distribution.uniform( List( Heads, Tails))
 
 }
